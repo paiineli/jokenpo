@@ -1,34 +1,34 @@
-﻿using JokenpoApp.Enums;
+using JokenpoApp.Enums;
 using JokenpoApp.Models;
 
 namespace JokenpoApp.Services
 {
     public class JokenpoService
     {
-        public Jogada RealizarJogada()
+        public Move GenerateComputerMove()
         {
             Random random = new Random();
-            return (Jogada)random.Next(0, 3);
+            return (Move)random.Next(0, 3);
         }
 
-        public Partida Resultado(Jogada jogadaJogador)
+        public Match Play(Move playerMove)
         {
-            Partida partida = new Partida();
+            Match match = new Match();
 
-            partida.JogadaJogador = jogadaJogador;
-            partida.JogadaComputador = RealizarJogada();
+            match.PlayerMove = playerMove;
+            match.ComputerMove = GenerateComputerMove();
 
-            if (partida.JogadaJogador == partida.JogadaComputador)
-                partida.Resultado = "Empate!";
+            if (match.PlayerMove == match.ComputerMove)
+                match.Result = "Draw!";
 
-            else if ((partida.JogadaJogador == Jogada.Pedra && partida.JogadaComputador == Jogada.Tesoura) ||
-                     (partida.JogadaJogador == Jogada.Papel && partida.JogadaComputador == Jogada.Pedra) ||
-                     (partida.JogadaJogador == Jogada.Tesoura && partida.JogadaComputador == Jogada.Papel))
-                partida.Resultado = "Você venceu!";
+            else if ((match.PlayerMove == Move.Rock && match.ComputerMove == Move.Scissors) ||
+                     (match.PlayerMove == Move.Paper && match.ComputerMove == Move.Rock) ||
+                     (match.PlayerMove == Move.Scissors && match.ComputerMove == Move.Paper))
+                match.Result = "You won!";
             else
-                partida.Resultado = "Computador venceu!";
+                match.Result = "Computer won!";
 
-            return partida;
+            return match;
         }
     }
 }

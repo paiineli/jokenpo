@@ -1,4 +1,4 @@
-﻿using JokenpoApp.Enums;
+using JokenpoApp.Enums;
 using JokenpoApp.Models;
 using JokenpoApp.Services;
 
@@ -8,38 +8,38 @@ namespace JokenpoApp.UI
     {
         private readonly JokenpoService _service = new JokenpoService();
 
-        public void Iniciar()
+        public void Start()
         {
-            Console.WriteLine("=== JOKENPÔ ===");
+            Console.WriteLine("=== JOKENPO ===");
 
             while (true)
             {
-                Console.WriteLine("\nEscolha sua jogada:");
-                Console.WriteLine("0 - Pedra");
-                Console.WriteLine("1 - Papel");
-                Console.WriteLine("2 - Tesoura");
-                Console.WriteLine("3 - Sair");
-                Console.Write("Opção: ");
+                Console.WriteLine("\nChoose your move:");
+                Console.WriteLine("0 - Rock");
+                Console.WriteLine("1 - Paper");
+                Console.WriteLine("2 - Scissors");
+                Console.WriteLine("3 - Quit");
+                Console.Write("Option: ");
 
                 string input = Console.ReadLine() ?? "";
 
                 if (input == "3") break;
 
-                if (!int.TryParse(input, out int opcao) || opcao < 0 || opcao > 2)
+                if (!int.TryParse(input, out int option) || option < 0 || option > 2)
                 {
-                    Console.WriteLine("Opção inválida!");
+                    Console.WriteLine("Invalid option!");
                     continue;
                 }
 
-                Jogada jogadaJogador = (Jogada)opcao;
-                Partida partida = _service.Resultado(jogadaJogador);
+                Move playerMove = (Move)option;
+                Match match = _service.Play(playerMove);
 
-                Console.WriteLine($"\nVocê jogou: {partida.JogadaJogador}");
-                Console.WriteLine($"Computador jogou: {partida.JogadaComputador}");
-                Console.WriteLine($"Resultado: {partida.Resultado}");
+                Console.WriteLine($"\nYou played: {match.PlayerMove}");
+                Console.WriteLine($"Computer played: {match.ComputerMove}");
+                Console.WriteLine($"Result: {match.Result}");
             }
 
-            Console.WriteLine("\nObrigado por jogar!");
+            Console.WriteLine("\nThanks for playing!");
         }
     }
 }

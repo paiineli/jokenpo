@@ -1,5 +1,5 @@
-﻿using JokenpoApp.UI;
+using JokenpoApp.UI;
 
 ConsoleUI consoleUI = new ConsoleUI();
 
-consoleUI.Iniciar();
+consoleUI.Start();
